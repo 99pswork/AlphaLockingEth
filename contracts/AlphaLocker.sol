@@ -17,10 +17,12 @@ contract AlphaLocker is Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
     
-   
+   //Declare Events
+    event Locked(address indexed _owner, uint256 _tokenId, uint256 _timeStamp);
+    event Unlocked(address indexed _owner, uint256 _tokenId, uint256 _timeStamp);
 
     struct Locker {
-        uint256 state;  // 0 -> Unlocked, 1 -> locked
+        uint256 state;  // 0 -> Unlocked, 1 -> Locked
         uint256 tokenNumber;
         address lockerOwner;
     }
@@ -50,7 +52,8 @@ contract AlphaLocker is Ownable {
         locker.state = 1;
         locker.tokenNumber = _tokenId;
 
-        // Emit Locked! 
+        // Emit Locked!
+        emit Locked(msg.sender, _tokenId, block.timestamp); 
 
     }
 
@@ -63,6 +66,7 @@ contract AlphaLocker is Ownable {
         locker.state = 0;
         
         // Emit Unlocked!
+        emit Unlocked(locker.lockerOwner, _tokenId, block.timestamp); 
     }
 
 }
