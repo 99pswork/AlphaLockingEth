@@ -14,12 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const TokenLocker = await hre.ethers.getContractFactory("TKNLocker");
+  const TokenLocker = await hre.ethers.getContractFactory("AlphaLocker");
   const tokenLocker = await TokenLocker.deploy();
 
   await tokenLocker.deployed();
 
-  console.log("Token locker deployed to:", tokenLocker.address);
+  console.log("NFT locker deployed to:", tokenLocker.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
