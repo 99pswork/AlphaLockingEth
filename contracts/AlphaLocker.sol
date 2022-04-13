@@ -54,12 +54,12 @@ contract AlphaLocker is Ownable {
 
         // Emit Locked!
         emit Locked(msg.sender, _tokenId, block.timestamp); 
-
     }
 
-    function unLockNFT(uint256 _tokenId) external onlyOwner {
+    function unLockNFT(uint256 _tokenId) external {
         Locker storage locker = nftLocker[_tokenId];
         require(locker.state == 1, "This NFT is not Locked");
+        require(locker.lockerOwner==msg.sender, "You are not owner of the Token");
         require(nftTokenAddress.ownerOf(_tokenId)==address(this), "NFT is not locked in this contract");
         
         nftTokenAddress.safeTransferFrom(address(this), locker.lockerOwner, _tokenId);
