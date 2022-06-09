@@ -32,14 +32,8 @@ contract AlphaLocker is Ownable {
 
     IERC721 public nftTokenAddress;
 
-    bool public lockupWindow = false;
-
     function updateNftAddress(IERC721 _token)public onlyOwner{
         nftTokenAddress = IERC721(_token);
-    }
-    
-    function toggleLockupWindow() external onlyOwner {
-        lockupWindow = !lockupWindow;
     }
     
     function lock(uint256 _tokenId) external {
